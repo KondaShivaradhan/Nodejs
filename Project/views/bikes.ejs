@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="https://www.wpclipart.com/recreation/cycling/bicycles/plain_bicycle_icon_large.png">
+    <title>Dashboard</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+
+    <style>
+        body {
+            padding: 0px;
+        }
+        
+         ::-webkit-scrollbar {
+            display: none;
+            ;
+        }
+    </style>
+    <!-- preload -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/loaders.min.css">
+    <link rel="stylesheet" href="./assets/css/bikes.css">
+
+</head>
+
+<body>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <nav id="navi" style="width:100%">
+                <ul id="listul" style="text-align: center;">
+                    <li id="list">
+                        <div style="color:white;">
+                            Welcome <i class="fa fa-user" aria-hidden="true"></i>
+                            <%= sn%>
+                                <span class="caret"></span>
+                        </div>
+                    </li>
+                    <li id="list">
+                        <button class="btn btn-light">
+                            <a href="/">Home</a> </button>
+                    </li>
+                    <li id="list">
+                        <button class="btn btn-light">
+                            <a href="/logout"><i class="fa fa-flag"></i> Logout</a></li>
+                        </button>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <br><br>
+    <div class="container">
+        <ul style="color: black;" class="list-group">
+            <%var i=0;for (var bike in result){i=i+1%>
+                <li style="text-align: start;color: #000;font" class="list-group-item">Bike number
+                    <%=i%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].name%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].phone%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].loc%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].c%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].add%>
+                </li>
+                <li class="list-group-item">
+                    <%=result[bike].bno%>
+                </li>
+                <li class="list-group-item"><img src="./uploads/<%= result[bike].bikeloc%>" style="height: 200px;width:300px;" alt=""></li>
+                <br>
+                <%}%>
+        </ul>
+    </div>
+</body>
+
+</html>
