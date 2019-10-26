@@ -20,42 +20,40 @@ const nologin = (req, res, next) => {
     sess = req.session;
     if (!sess.name) {
         res.redirect('/login');
-    }
-    else {
+    } else {
         next();
     }
 }
 app.use(express.static(path.join(__dirname, "public")));
 app.set('view engine', 'ejs');
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     sess = req.session;
     sess.name;
     sess.email;
     res.render('welcome');
 });
 app.use(express.urlencoded({ extended: false }));
-app.get('/register', function (req, res) {
+app.get('/register', function(req, res) {
     res.render('register');
 })
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.render('login');
 });
 app.get('/modals/Users');
-app.post('/login', function (req, res) {
+app.post('/login', function(req, res) {
     var { name, password, phone, email } = req.body;
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("Project");
         var query = { name: name, password: password };
-        dbo.collection("Users").find(query).toArray(function (err, result) {
+        dbo.collection("Users").find(query).toArray(function(err, result) {
             if (err) {
                 res.render('login');
             } else {
                 if (!result[0]) {
                     console.log('no user found')
                     res.render('login');
-                }
-                else {
+                } else {
                     sess = req.session;
                     sess.name = result[0].name;
                     sess.phone = result[0].phone;
@@ -75,10 +73,10 @@ app.post('/login', function (req, res) {
         });
     });
 });
-app.get('/dashboard', nologin, function (req, res) {
+app.get('/dashboard', nologin, function(req, res) {
     res.render('dashboard');
 });
-app.post('/register', function (req, res) {
+app.post('/register', function(req, res) {
     var { name, email, phone, password, confirmpassword } = req.body;
     let error = []
     if (!name || !email || !phone || !password || !confirmpassword) {
@@ -98,16 +96,18 @@ app.post('/register', function (req, res) {
 
         })
         console.log(error);
-    }
-    else {
+    } else {
         var newuser = new User({
-            name, email, phone, password
+            name,
+            email,
+            phone,
+            password
         });
-        MongoClient.connect(url, function (err, db) {
+        MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("Project");
             var myobj = { name, phone, password, email };
-            dbo.collection("Users").insertOne(myobj, function (err, res) {
+            dbo.collection("Users").insertOne(myobj, function(err, res) {
                 if (err) throw err;
                 console.log("1 document inserted");
                 db.close();
@@ -128,9 +128,8 @@ app.get('/logout', (req, res) => {
 });
 const storage = multer.diskStorage({
     destination: './public/uploads/',
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-        
+    filename: function(req, files, cb) {
+        cb(null, files.fieldname + '-' + Date.now() + path.extname(files.originalname));
     }
 });
 
@@ -138,26 +137,27 @@ const upload = multer({
     storage: storage,
     limits: { fileSize: '50mb' },
 
-}).single('pic');
-app.post('/lend', function (req, res) {
+}).array('pic', 3);
+app.post('/lend', function(req, res) {
     sess = req.session;
     if (!sess.name) {
         res.redirect('/login');
     }
-    
+
     var name = sess.name;
     var phone = sess.phone;
     var loc = req.body.loc;
     var c = req.body.cost;
     var add = req.body.add;
     var bno = req.body.bn;
-    var bikeloc=picloc;
-    MongoClient.connect(url, function (err, db) {
+    var bikeloc = picloc;
+
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("Project");
-        var myobj = { name, phone, loc, c, add,bno,bikeloc};
+        var myobj = { name, phone, loc, c, add, bno, bikeloc };
 
-        dbo.collection("Bikes").insertOne(myobj, function (err, res) {
+        dbo.collection("Bikes").insertOne(myobj, function(err, res) {
             if (err) throw err;
             console.log("1 Bike inserter!");
             db.close();
@@ -166,7 +166,7 @@ app.post('/lend', function (req, res) {
     });
     res.render('dashboard');
 });
-app.post('/lend2', function (req, res) {
+app.post('/lend2', function(req, res) {
     sess = req.session;
     if (!sess.name) {
         res.redirect('/login');
@@ -184,17 +184,19 @@ app.post('/lend2', function (req, res) {
             console.log(err);
         } else {
             if (pic == undefined) {
-                global.picloc = res.req.file.filename;
-            
+                global.picloc = res.req.files;
+
+
+
             } else {
                 console.log('The filename is ' + res.req.file.filename);
             }
         }
     });
 });
-app.get('/rent',nologin)
-app.get('/lend',nologin)
-app.post('/rent',function (req,res,err) {
+app.get('/rent', nologin)
+app.get('/lend', nologin)
+app.post('/rent', function(req, res, err) {
     sess = req.session;
     if (!sess.name) {
         res.redirect('/login');
@@ -205,16 +207,16 @@ app.post('/rent',function (req,res,err) {
     sess.pick = loc;
     console.log(sess.pick);
     console.log(req.body);
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("Project");
-        var query = {"loc":loc};
-        dbo.collection("Bikes").find(query).toArray(function (err,results){
+        var query = { "loc": loc };
+        dbo.collection("Bikes").find(query).toArray(function(err, results) {
             if (err) throw err;
             var bikes = results;
             console.log(bikes);
             db.close();
-            res.render('bikes',{result:results});
+            res.render('bikes', { result: results });
         });
     });
 })

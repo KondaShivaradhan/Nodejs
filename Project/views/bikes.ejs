@@ -45,7 +45,7 @@
                     <li id="list">
                         <button class="btn btn-light">
                             <a href="/logout"><i class="fa fa-flag"></i> Logout</a></li>
-                        </button>
+                    </button>
 
                 </ul>
             </nav>
@@ -55,7 +55,7 @@
     <div class="container">
         <ul style="color: black;" class="list-group">
             <%var i=0;for (var bike in result){i=i+1%>
-                <li style="text-align: start;color: #000;font" class="list-group-item">Bike number
+                <li style="text-align: start;color: #000;" class="list-group-item">Bike number
                     <%=i%>
                 </li>
                 <li class="list-group-item">
@@ -76,7 +76,10 @@
                 <li class="list-group-item">
                     <%=result[bike].bno%>
                 </li>
-                <li class="list-group-item"><img src="./uploads/<%= result[bike].bikeloc%>" style="height: 200px;width:300px;" alt=""></li>
+
+                <li class="list-group-item"><img src="./uploads/<%= result[bike].bikeloc[0].filename%>" style="height: 200px;width:300px;" alt=""></li>
+                <li class="list-group-item"><img src="./uploads/<%= result[bike].bikeloc[1].filename%>" style="height: 200px;width:300px;" alt=""></li>
+                <li class="list-group-item"><img src="./uploads/<%= result[bike].bikeloc[2].filename%>" style="height: 200px;width:300px;" alt=""></li>
                 <br>
                 <%}%>
         </ul>
