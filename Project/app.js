@@ -143,7 +143,6 @@ app.post('/lend', function(req, res) {
     if (!sess.name) {
         res.redirect('/login');
     }
-
     var name = sess.name;
     var phone = sess.phone;
     var loc = req.body.loc;
@@ -159,10 +158,10 @@ app.post('/lend', function(req, res) {
 
         dbo.collection("Bikes").insertOne(myobj, function(err, res) {
             if (err) throw err;
-            console.log("1 Bike inserter!");
-            db.close();
-        });
 
+            db.close();
+            console.log("1 Bike inserter!");
+        });
     });
     res.render('dashboard');
 });

@@ -24,12 +24,12 @@
     <style>
          ::-webkit-scrollbar {
             display: none;
-            ;
         }
     </style>
     <script>
-        function msg() {
-            alert("while loading please fill the main form");
+        function imgu() {
+            alert('form submited');
+            document.getElementById("form").submit();
         }
     </script>
 </head>
@@ -172,26 +172,9 @@
             </div>
             <div class="col-lg-6 col-lg-pull-6  padd-lr0">
                 <div class="wheel-start-form">
-                    <form action="/lend2" method="POST" enctype="multipart/form-data">
-                        <div class="custom-file mb-3">
-                            <label>Bike Pictures 1<input type="file" name="pic" id="fil" placeholder="upload image"
-                                    class="custom-file-input" multiple></label>
-                        </div>
 
-                        <!--<div class="custom-file mb-3">
-                            <label for="">Bike Pictures 2<input type="file" name="pic2" id="fil"
-                                    class="custom-file-input"></label>
-                        </div>
-                        <div class="custom-file mb-3">
-                            <label for="">Bike Pictures 3<input type="file" name="pic3" id="fil"
-                                    class="custom-file-input"></label>
-                        </div>-->
-                        <label class="promo promo2">
-                            <input type="submit" value="submit">
-                        </label>
-                    </form>
                     <br>
-                    <form action="/lend" method="POST">
+                    <form id="form" action="/lend" method="POST">
                         <label><span>Picking Point</span>
                             <input type="text" name="loc" id='input-val12' placeholder="ZIP, City,or Address" required>
                         </label>
@@ -228,10 +211,19 @@
                             </div>
                         </div>
                         <label for="input-val18" class="promo promo2">
-                            <input type="submit" value="submit">
+                            <input type="submit" id="textf" value="submit">
                         </label>
                     </form>
-
+                    <br>
+                    <form action="/lend2" method="POST" enctype="multipart/form-data">
+                        <div class="custom-file mb-3">
+                            <label>Bike Pictures 1<input type="file" name="pic" id="fil" placeholder="upload image"
+                                    class="custom-file-input" multiple></label>
+                        </div>
+                        <label class="promo promo2">
+                            <input onclick="imgu()" type="submit" id="img" value="submit">
+                        </label>
+                    </form>
                 </div>
             </div>
         </div>
