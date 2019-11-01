@@ -147,6 +147,8 @@ app.post('/lend', function(req, res) {
     var phone = sess.phone;
     var loc = req.body.loc;
     var c = req.body.cost;
+    var bcc = req.body.bcc;
+    var bname = req.body.bname;
     var add = req.body.add;
     var bno = req.body.bn;
     var bikeloc = picloc;
@@ -154,7 +156,7 @@ app.post('/lend', function(req, res) {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("Project");
-        var myobj = { name, phone, loc, c, add, bno, bikeloc };
+        var myobj = { name, phone, loc, c,bcc,bname, add, bno, bikeloc };
 
         dbo.collection("Bikes").insertOne(myobj, function(err, res) {
             if (err) throw err;

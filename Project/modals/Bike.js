@@ -20,6 +20,14 @@ var BikeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bcc: {
+        type: String,
+        required: true
+    },
+    bname: {
+        type: String,
+        required: true
+    },
     bikenumber: {
         type: String,
         required: true
