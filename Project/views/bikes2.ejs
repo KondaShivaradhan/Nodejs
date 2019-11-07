@@ -22,19 +22,7 @@
     <!-- preload -->
     <link rel="stylesheet" type="text/css" href="./assets/css/loaders.min.css">
     <link rel="stylesheet" href="./assets/css/bikes.css">
-    <script>
-    function show()
-    {
-        alert("came");
-        document.getElementById("show").style.display = "";
-    }
-    </script>
-    <style>
-    #show
-    {
-        display: none;
-    }
-    </style>
+
 </head>
 
 <body>
@@ -118,18 +106,6 @@
             </div>
             <br>
             <hr>
-            <div class>
-                <img src="./uploads/<%= result[bike].bikeloc[0].filename%>" alt="Denim Jeans" >
-                <h1> <span style="font-family: 'McLaren', cursive;
-                     "> Bike Model: </span><%=result[bike].bname%></h1>
-                <p class="price"><span style="font-family: 'McLaren', cursive;
-                    font-size: 20px; "> Cost Per hour: </span><%=result[bike].c%></p>
-                <p id="show">Some text about the jeans..</p>
-                <p id="show">Some text about the jeans..</p>
-                <p id="show">Some text about the jeans..</p>
-                <p id="show">Some text about the jeans..</p>
-                <p><button onclick="show()">Interested?</button></p>
-              </div>
             <%}%>
         </ul>
     </div>

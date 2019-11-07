@@ -220,5 +220,8 @@ app.post('/rent', function(req, res, err) {
             res.render('bikes', { result: results });
         });
     });
-})
+});
+app.get('/admin',function(req,res){
+    res.render('admin');
+});
 app.listen(5000);
